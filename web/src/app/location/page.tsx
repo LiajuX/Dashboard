@@ -12,7 +12,7 @@ import { HighlightedText } from '../../components/HighlightedText'
 
 function Location() {
   return (
-    <div className="grid grid-cols-base gap-16">
+    <div className="grid grid-cols-base gap-8 h-auto max-w-[1120px] mx-auto mt-4">
       <Container title="Dados">
         <DataBox title="Tempo de percurso" icon={Timer}>
           <Value value="01:25" />

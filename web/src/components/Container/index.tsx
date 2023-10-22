@@ -17,7 +17,7 @@ export function Container({ title, children }: ContainerProps) {
           'rounded-ss-2xl rounded-se-2xl border border-b-0 border-petrol-500 bg-petrol-800',
         )}
       >
-        <h3 className="text-xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-brand-aqua to-brand-blue">
+        <h3 className="text-[18px] font-medium text-transparent bg-clip-text bg-gradient-to-r from-brand-aqua to-brand-blue">
           {title}
         </h3>
       </div>

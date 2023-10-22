@@ -168,7 +168,7 @@ export function Battery({ level }: BatteryProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="48"
+      width="44"
       height="84"
       fill="none"
       viewBox="0 0 48 84"

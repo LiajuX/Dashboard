@@ -20,7 +20,7 @@ export function DataBox({
       <div className="flex items-center gap-2 w-full px-4 py-2 border-b border-petrol-500">
         <Icon size={20} className="text-petrol-500" {...iconProps} />
 
-        <span className="font-medium text-petrol-200">{title}</span>
+        <span className="text-sm font-medium text-petrol-200">{title}</span>
       </div>
 
       <div className="flex flex-col items-center w-full h-full px-6 py-2">

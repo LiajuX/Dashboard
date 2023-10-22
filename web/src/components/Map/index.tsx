@@ -2,8 +2,8 @@ export function Map() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="732"
-      height="433"
+      width="650"
+      height="351"
       fill="none"
       viewBox="0 0 732 433"
     >

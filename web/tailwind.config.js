@@ -8,7 +8,7 @@ export const content = [
 export const theme = {
   extend: {
     gridTemplateColumns: {
-      base: 'minmax(100px, 1fr) 3fr',
+      base: '2fr 6fr',
     },
 
     colors: {

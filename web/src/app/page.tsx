@@ -34,7 +34,7 @@ function Home() {
   ]
 
   return (
-    <div className="grid grid-cols-base gap-16 h-auto">
+    <div className="grid grid-cols-base gap-8 h-auto max-w-[1120px] mx-auto mt-4">
       <Container title="Velocidade">
         <DataBox title="Motor esquerdo" icon={Gauge}>
           <Speedometer speed={0.3} pwm={140} />
@@ -46,7 +46,7 @@ function Home() {
       </Container>
 
       <Container title="Dados do carro">
-        <div className="flex gap-12 w-full h-full">
+        <div className="flex gap-12 w-full">
           {charts.map((chart) => (
             <LineChart
               key={chart.title}
@@ -60,7 +60,7 @@ function Home() {
 
         <div className="flex gap-8 w-full">
           <DataBox title="Status das baterias" icon={Cable}>
-            <div className="flex flex-col justify-between items-center w-full h-full my-7 px-2">
+            <div className="flex flex-col justify-center items-center gap-2 w-full h-full px-1">
               <div className="flex justify-between w-full">
                 <Battery level={9} />
                 <Battery level={6} />

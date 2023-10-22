@@ -4,7 +4,6 @@ import { Roboto } from 'next/font/google'
 import { Header } from '../components/Header'
 
 import '../styles/global.css'
-import { twMerge } from 'tailwind-merge'
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -24,11 +23,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className="h-full bg-petrol-900 antialiased">
-      <body className={twMerge('pb-16', roboto.className)}>
+    <html lang="pt-BR" className="bg-petrol-900 antialiased">
+      <body className={roboto.className}>
         <Header />
 
-        <main className="max-w-[1220px] h-full mx-auto mt-6">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   )

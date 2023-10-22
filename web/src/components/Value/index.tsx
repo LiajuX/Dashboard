@@ -11,9 +11,9 @@ const valueVariants = tv({
 
   variants: {
     size: {
-      lg: { valueStyles: 'text-3xl', unitStyles: 'text-2xl' },
-      'lg-md': { valueStyles: 'text-3xl', unitStyles: 'text-lg' },
-      md: { valueStyles: 'text-2xl', unitStyles: 'text-base font-normal' },
+      lg: { valueStyles: 'text-2xl', unitStyles: 'text-xl' },
+      'lg-md': { valueStyles: 'text-2xl', unitStyles: 'text-lg' },
+      md: { valueStyles: 'text-xl', unitStyles: 'text-sm font-normal' },
     },
   },
 

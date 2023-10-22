@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <header className="flex-1 items-center p-4">
-      <div className="flex items-center justify-between max-w-[1220px] mx-auto">
+      <div className="flex items-center justify-between max-w-[1120px] mx-auto">
         <div className="relative w-24 h-7">
           <Image
             src="/assets/logo.svg"

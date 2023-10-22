@@ -15,7 +15,7 @@ export function Speedometer({ speed, pwm }: SpeedometerProps) {
         <Value
           size="lg-md"
           value={speed.toString().replace('.', ',')}
-          unit="PWM"
+          unit="m/s"
           breakline
         />
 
