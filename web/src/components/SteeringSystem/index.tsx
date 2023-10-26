@@ -1,137 +1,73 @@
+import { Wheel } from './Wheel'
+
 interface SteeringSystemProps {
   angle: number
 }
 
 export function SteeringSystem({ angle }: SteeringSystemProps) {
   return (
-    <svg
-      width="140"
-      height="80"
-      viewBox="0 0 140 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <line
-        x1="18"
-        y1="39"
-        x2="125"
-        y2="39"
-        stroke="white"
-        strokeOpacity="0.05"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <line
-        x1="69"
-        y1="63"
-        x2="69"
-        y2="12"
-        stroke="#0F1F26"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeDasharray="6 6"
-      />
-      <g filter="url(#filter0_d_276_184)">
-        <circle cx="69" cy="39" r="3" className="fill-brand-blue" />
-      </g>
-      <rect
-        x="2.54277"
-        y="1.49834"
-        width="27.9998"
-        height="72.7999"
-        rx="13.9999"
-        stroke="#0C9CD1"
-        strokeOpacity="0.3"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="1.14336"
-        y="1.49809"
-        width="30.7998"
-        height="76.9999"
-        rx="15.3999"
-        stroke="#0C9CD1"
-        strokeOpacity="0.1"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="3.24199"
-        y="1.49858"
-        width="26.5998"
-        height="68.5999"
-        rx="13.2999"
-        fill="#010C11"
-        stroke="#0C9CD1"
-        strokeWidth="1.4"
-      />
+    <div className="flex items-center justify-center">
+      <Wheel angle={angle} />
 
-      <rect
-        x="109.1"
-        y="1.7"
-        width="27.9998"
-        height="72.7999"
-        rx="13.9999"
-        stroke="#0C9CD1"
-        strokeOpacity="0.3"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="107.7"
-        y="1.70036"
-        width="30.7998"
-        height="76.9999"
-        rx="15.3999"
-        stroke="#0C9CD1"
-        strokeOpacity="0.1"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="109.8"
-        y="1.70012"
-        width="26.5998"
-        height="68.5999"
-        rx="13.2999"
-        fill="#010C11"
-        stroke="#0C9CD1"
-        strokeWidth="1.4"
-      />
-      <defs>
-        <filter
-          id="filter0_d_276_184"
-          x="51"
-          y="22"
-          width="36"
-          height="36"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="73"
+          height="53"
+          fill="none"
+          viewBox="0 0 73 53"
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dy="1" />
-          <feGaussianBlur stdDeviation="7.5" />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0.0470588 0 0 0 0 0.611765 0 0 0 0 0.819608 0 0 0 1 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="BackgroundImageFix"
-            result="effect1_dropShadow_276_184"
-          />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="effect1_dropShadow_276_184"
-            result="shape"
-          />
-        </filter>
-      </defs>
-    </svg>
+          <path
+            stroke="#0F1F26"
+            strokeDasharray="6 6"
+            strokeLinecap="round"
+            strokeWidth="2"
+            d="M36 52L36 1"
+          ></path>
+          <path
+            stroke="#0F1F26"
+            strokeLinecap="square"
+            strokeWidth="3"
+            d="M1.5 25.5L71.5 25.5"
+          ></path>
+          <g filter="url(#filter0_d_17_2)">
+            <circle cx="36.143" cy="26.5" r="3.5" fill="#0C9CD1"></circle>
+          </g>
+          <defs>
+            <filter
+              id="filter0_d_17_2"
+              width="37"
+              height="37"
+              x="17.643"
+              y="9"
+              colorInterpolationFilters="sRGB"
+              filterUnits="userSpaceOnUse"
+            >
+              <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+              <feColorMatrix
+                in="SourceAlpha"
+                result="hardAlpha"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              ></feColorMatrix>
+              <feOffset dy="1"></feOffset>
+              <feGaussianBlur stdDeviation="7.5"></feGaussianBlur>
+              <feComposite in2="hardAlpha" operator="out"></feComposite>
+              <feColorMatrix values="0 0 0 0 0.0470588 0 0 0 0 0.611765 0 0 0 0 0.819608 0 0 0 1 0"></feColorMatrix>
+              <feBlend
+                in2="BackgroundImageFix"
+                result="effect1_dropShadow_17_2"
+              ></feBlend>
+              <feBlend
+                in="SourceGraphic"
+                in2="effect1_dropShadow_17_2"
+                result="shape"
+              ></feBlend>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+
+      <Wheel angle={angle} />
+    </div>
   )
 }

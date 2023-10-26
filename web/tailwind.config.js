@@ -5,10 +5,19 @@ export const content = [
   './src/components/**/*.{js,ts,jsx,tsx,mdx}',
   './src/app/**/*.{js,ts,jsx,tsx,mdx}',
 ]
+
 export const theme = {
   extend: {
     gridTemplateColumns: {
       base: '2fr 6fr',
+    },
+
+    borderRadius: {
+      'top-left': '100% 200% 0 0',
+    },
+
+    transformOrigin: {
+      'center-top': 'center top',
     },
 
     colors: {

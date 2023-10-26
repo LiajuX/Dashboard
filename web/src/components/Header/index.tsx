@@ -17,14 +17,7 @@ export function Header() {
   return (
     <header className="flex-1 items-center p-4">
       <div className="flex items-center justify-between max-w-[1120px] mx-auto">
-        <div className="relative w-24 h-7">
-          <Image
-            src="/assets/logo.svg"
-            alt="CarAI"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
+        <Image src="/assets/logo.svg" alt="CarAI" width={96} height={28} />
 
         <nav>
           <ul className="flex align-center justify-center gap-4 p-2 rounded-full bg-petrol-800 font-medium text-sm">

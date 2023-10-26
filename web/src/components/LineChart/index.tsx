@@ -7,6 +7,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
@@ -18,6 +19,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  Filler,
 )
 
 interface LineChartProps {
@@ -49,6 +51,9 @@ const options = {
   },
   stacked: false,
   plugins: {
+    filler: {
+      propagate: false,
+    },
     legend: {
       display: false,
     },
@@ -71,7 +76,6 @@ export function LineChart({
         borderColor: '#0BFD2B',
         backgroundColor: '#0BFD2B',
         pointRadius: 2,
-        fill: true,
       },
       {
         label: 'Motor direito',
@@ -80,7 +84,6 @@ export function LineChart({
         borderColor: '#0AD2AB',
         backgroundColor: '#0AD2AB',
         pointRadius: 2,
-        fill: true,
       },
     ],
   }

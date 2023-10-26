@@ -3,7 +3,7 @@
 import { twMerge } from 'tailwind-merge'
 
 interface TrafficLightProps {
-  state: 'red' | 'yellow' | 'green'
+  state: 'red' | 'yellow' | 'green' | 'off'
   height?: number
 }
 

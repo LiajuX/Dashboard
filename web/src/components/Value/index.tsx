@@ -26,6 +26,7 @@ interface ValueProps extends VariantProps<typeof valueVariants> {
   value: string | number
   unit?: string
   breakline?: boolean
+  styles?: string
 }
 
 export function Value({
@@ -33,11 +34,14 @@ export function Value({
   value,
   unit = '',
   breakline = false,
+  styles = '',
 }: ValueProps) {
   const { valueStyles, unitStyles } = valueVariants({ size })
 
   return (
-    <span className={breakline ? 'flex flex-col items-center' : ''}>
+    <span
+      className={twMerge(breakline ? 'flex flex-col items-center' : '', styles)}
+    >
       <strong className={valueStyles()}>{value}</strong>{' '}
       {unit && (
         <span className={twMerge(unitStyles(), breakline && 'block')}>

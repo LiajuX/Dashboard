@@ -168,7 +168,7 @@ export function Battery({ level }: BatteryProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="44"
+      width="48"
       height="84"
       fill="none"
       viewBox="0 0 48 84"
@@ -254,6 +254,7 @@ export function Battery({ level }: BatteryProps) {
         rx="2"
         transform="rotate(-90 6 24)"
       ></rect>
+
       <path
         className="fill-petrol-900 stroke-petrol-500"
         d="M33.572 48.182h.009L20.366 62.341s0 0 0 0a.5.5 0 01-.855-.437s0 0 0 0l1.832-9.165.083-.416-.398-.15-7.204-2.705h0a.5.5 0 01-.188-.813h0l.003-.003 14-14.999s0 0 0 0a.5.5 0 01.855.437s0 0 0 0l-1.837 9.174-.083.417.398.15 7.202 2.7s0 0 0 0a.501.501 0 01.187.81l-.789.841z"
