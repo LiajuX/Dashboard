@@ -117,8 +117,15 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
           setIsTimerRunning(false)
         }
 
+        const minutes = Math.floor(elapsedTime / 60)
+        const seconds = elapsedTime % 60
+
+        const currentTime = `${String(minutes).padStart(2, '0')}:${String(
+          seconds,
+        ).padStart(2, '0')}`
+
         setSpeedChartData((prevChartData) => ({
-          labels: [...prevChartData.labels.slice(1), firebaseData.distance],
+          labels: [...prevChartData.labels.slice(1), currentTime],
           leftEngineData: [
             ...prevChartData.leftEngineData.slice(1),
             firebaseData.left_wheel_speed,
@@ -130,7 +137,7 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
         }))
 
         setPwmChartData((prevChartData) => ({
-          labels: [...prevChartData.labels.slice(1), firebaseData.distance], // Remove o primeiro valor e adiciona o novo valor no final
+          labels: [...prevChartData.labels.slice(1), currentTime],
           leftEngineData: [
             ...prevChartData.leftEngineData.slice(1),
             firebaseData.left_wheel_pwm,
