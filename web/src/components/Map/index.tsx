@@ -1,22 +1,59 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
+
 import { Car } from './Car'
 
-export function Map() {
+interface MapProps {
+  isAnimating: boolean
+  objectDetected: boolean
+}
+
+gsap.registerPlugin(MotionPathPlugin)
+
+export function Map({ isAnimating = false, objectDetected = false }: MapProps) {
+  const animationRef = useRef<GSAPTween | null>(null)
+
+  useEffect(() => {
+    if (!animationRef.current) {
+      animationRef.current = gsap.to('#rect', {
+        duration: 2000,
+        repeat: -1,
+        ease: 'none',
+        paused: true,
+        motionPath: {
+          path: '#path',
+          align: '#path',
+          autoRotate: true,
+          start: 1.8,
+          end: 0,
+          alignOrigin: [0.5, 0.5],
+        },
+      })
+    }
+
+    if (isAnimating) {
+      animationRef.current.play()
+    } else {
+      animationRef.current.pause()
+    }
+  }, [isAnimating])
+
   return (
     <div>
-      <Car objectDetected={true} />
-
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="721"
-        height="415"
+        height="380"
         fill="none"
         viewBox="0 0 721 415"
       >
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeWidth="2.55"
           d="M173.625 369.358h409.154c43.939 0 79.678-35.537 80.102-79.649l1.615-168.379c.42-43.876-34.89-79.671-78.596-79.671-43.41 0-78.6 35.33-78.6 78.911v70.217c0 23.734-10.199 45.037-26.535 59.807-14.22 12.858-32.969 20.645-53.601 20.645-20.632 0-39.381-7.787-53.602-20.645-16.336-14.77-26.534-36.073-26.534-59.807v-68.704c0-44.417-35.865-80.424-80.106-80.424h-55.047"
         ></path>
+
         <path
           stroke="#1B3945"
           strokeWidth="1.751"
@@ -46,10 +83,12 @@ export function Map() {
           d="M351.999 338.28h16.15v62.432h-16.15V338.28z"
         ></path>
         <path
+          id="path-start"
           stroke="#1B3945"
           strokeWidth="1.7"
           d="M319.4 338.28h146.2v62.903H319.4V338.28z"
         ></path>
+
         <path
           stroke="#1B3945"
           strokeWidth="1.7"
@@ -61,7 +100,8 @@ export function Map() {
           strokeWidth="2.55"
           d="M124.532 369.358c-44.242 0-81.382-36.007-81.382-80.425v-166.85c0-44.417 37.14-80.424 81.382-80.424h142.39c44.242 0 80.107 36.007 80.107 80.424v68.704c0 23.734 10.198 45.037 26.533 59.807 14.221 12.858 32.97 20.645 53.603 20.645 20.632 0 39.38-7.787 53.601-20.645 16.335-14.77 26.534-36.073 26.534-59.807V120.57c0-43.581 35.19-78.911 78.6-78.911 43.706 0 79.017 35.795 78.597 79.671l-1.615 168.379c-.424 44.112-36.163 79.649-80.103 79.649H124.532z"
         ></path>
-        <g stroke="#707C82" strokeWidth="1.7" filter="url(#filter0_d_0_1)">
+
+        <g stroke="#0BFD2B" strokeWidth="1.7" filter="url(#filter0_d_0_1)">
           <path
             fill="#02131B"
             d="M60.3 90.45c8.92 0 16.15-7.23 16.15-16.15 0-8.92-7.23-16.15-16.15-16.15-8.92 0-16.15 7.23-16.15 16.15 0 8.92 7.23 16.15 16.15 16.15z"
@@ -77,7 +117,7 @@ export function Map() {
             d="M65.966 68.633h-4.958a2.833 2.833 0 00-2.834 2.834v8.5"
           ></path>
         </g>
-        <g stroke="#707C82" strokeWidth="1.7" filter="url(#filter1_d_0_1)">
+        <g stroke="#0BFD2B" strokeWidth="1.7" filter="url(#filter1_d_0_1)">
           <path
             fill="#02131B"
             d="M61.6 359.2c8.92 0 16.15-7.231 16.15-16.15 0-8.919-7.23-16.15-16.15-16.15-8.92 0-16.15 7.231-16.15 16.15 0 8.919 7.23 16.15 16.15 16.15z"
@@ -95,13 +135,13 @@ export function Map() {
         </g>
         <path
           fill="#02131B"
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeWidth="1.7"
           d="M283.35 387.45c8.919 0 16.15-7.231 16.15-16.15 0-8.919-7.231-16.15-16.15-16.15-8.92 0-16.15 7.231-16.15 16.15 0 8.919 7.23 16.15 16.15 16.15z"
         ></path>
         <g clipPath="url(#clip0_0_1)">
           <path
-            stroke="#707C82"
+            stroke="#0BFD2B"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.7"
@@ -110,19 +150,19 @@ export function Map() {
         </g>
         <path
           fill="#02131B"
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeWidth="1.7"
           d="M619.1 376.55c8.919 0 16.15-7.231 16.15-16.15 0-8.919-7.231-16.15-16.15-16.15-8.92 0-16.15 7.231-16.15 16.15 0 8.919 7.23 16.15 16.15 16.15z"
         ></path>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
           d="M617.684 358.275l3.541-3.542 3.542 3.542"
         ></path>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
@@ -137,20 +177,20 @@ export function Map() {
             ry="15.3"
           ></ellipse>
           <path
-            stroke="#707C82"
+            stroke="#0BFD2B"
             strokeWidth="1.7"
             d="M653.1 108.95c8.919 0 16.15-7.231 16.15-16.15 0-8.92-7.231-16.15-16.15-16.15-8.92 0-16.15 7.23-16.15 16.15 0 8.919 7.23 16.15 16.15 16.15z"
           ></path>
         </g>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
           d="M650.975 94.217l-3.542-3.542 3.542-3.542"
         ></path>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
@@ -165,20 +205,20 @@ export function Map() {
             ry="15.3"
           ></ellipse>
           <path
-            stroke="#707C82"
+            stroke="#0BFD2B"
             strokeWidth="1.7"
             d="M486.501 252.6c8.92 0 16.15-7.23 16.15-16.15 0-8.919-7.23-16.15-16.15-16.15-8.919 0-16.15 7.231-16.15 16.15 0 8.92 7.231 16.15 16.15 16.15z"
           ></path>
         </g>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
           d="M484.376 235.033l-3.542 3.542 3.542 3.542"
         ></path>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
@@ -193,25 +233,28 @@ export function Map() {
             ry="15.3"
           ></ellipse>
           <path
-            stroke="#707C82"
+            stroke="#0BFD2B"
             strokeWidth="1.7"
             d="M327.85 90.65c8.919 0 16.15-7.23 16.15-16.15 0-8.92-7.231-16.15-16.15-16.15-8.92 0-16.15 7.23-16.15 16.15 0 8.92 7.23 16.15 16.15 16.15z"
           ></path>
         </g>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
           d="M325.725 75.917l-3.542-3.542 3.542-3.542"
         ></path>
         <path
-          stroke="#707C82"
+          stroke="#0BFD2B"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="1.7"
           d="M333.517 80.167v-4.959a2.835 2.835 0 00-2.834-2.833h-8.5"
         ></path>
+        <g id="rect">
+          <Car objectDetected={objectDetected} />
+        </g>
         <defs>
           <filter
             id="filter0_d_0_1"
