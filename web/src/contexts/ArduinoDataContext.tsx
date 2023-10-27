@@ -109,7 +109,7 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
         setData(firebaseData)
 
         // console.log(lapsCounter)
-        // console.log(firebaseData)
+        console.log(firebaseData)
 
         if (firebaseData.timer_started && firebaseData.is_arduino_connected) {
           setIsTimerRunning(true)
@@ -123,6 +123,8 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
         const currentTime = `${String(minutes).padStart(2, '0')}:${String(
           seconds,
         ).padStart(2, '0')}`
+
+        console.log(currentTime)
 
         setSpeedChartData((prevChartData) => ({
           labels: [...prevChartData.labels.slice(1), currentTime],
@@ -153,7 +155,7 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
     return () => {
       offValueListener()
     }
-  }, [accumulatedDistance, data, lapsCounter])
+  }, [accumulatedDistance, data, elapsedTime, lapsCounter])
 
   useEffect(() => {
     let interval: NodeJS.Timeout
@@ -164,7 +166,7 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
       }, 1000)
     }
 
-    console.log(isTimerRunning)
+    // console.log(isTimerRunning)
 
     return () => {
       if (interval) {

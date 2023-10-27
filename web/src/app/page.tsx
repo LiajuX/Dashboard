@@ -35,7 +35,7 @@ function Home() {
     data.car_control_mode === 1
       ? 'Autônomo'
       : data.car_control_mode === 2
-      ? 'Controle de velocidade'
+      ? 'Controle vel.'
       : data.car_control_mode === 3
       ? 'Ajuste do servo'
       : data.car_control_mode === 4

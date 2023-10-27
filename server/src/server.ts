@@ -37,6 +37,14 @@ const RECONNECT_INTERVAL = 5000;
 let port: SerialPort;
 let parser: ReadlineParser;
 
+function isBoolean(value: any): value is boolean {
+  return value === true || value === false;
+}
+
+function isNumber(value: any): value is number {
+  return typeof value === 'number' && !isNaN(value);
+}
+
 function connectToArduino() {
   port = new SerialPort({ path, baudRate });
   parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
@@ -54,25 +62,27 @@ function connectToArduino() {
   })
 
   parser.on('data', (data) => {
+    console.log('🚀 Conexão estabelecida com sucesso! Servidor rodando.')
+
     const serialData = data.toString().split(',')
 
     const validData: Partial<ArduinoDataType> = {};
 
-    if (serialData[0]) validData.timer_started = serialData[0] === '1';
-    if (serialData[1]) validData.car_control_mode = parseInt(serialData[1]);
-    if (serialData[2]) validData.engine_status = parseInt(serialData[2]);
-    if (serialData[3]) validData.right_wheel_pwm = parseInt(serialData[3]);
-    if (serialData[4]) validData.left_wheel_pwm = parseInt(serialData[4]);
-    if (serialData[5]) validData.right_wheel_speed = parseInt(serialData[5]);
-    if (serialData[6]) validData.left_wheel_speed = parseInt(serialData[6]);
-    if (serialData[7]) validData.distance = parseInt(serialData[7]);
-    if (serialData[8]) validData.steering_angle = parseInt(serialData[8]);
-    if (serialData[9]) validData.car_inclination = parseInt(serialData[9]);
-    if (serialData[10]) validData.object_detected = serialData[10] === '1';
-    if (serialData[11]) validData.traffic_light_status = parseInt(serialData[11]);
-    if (serialData[12]) validData.stop_sign_detected = serialData[12] === '1';
-    if (serialData[13]) validData.solar_battery_status = parseInt(serialData[13]);
-    if (serialData[14]) validData.engines_battery_status = parseInt(serialData[14]);
+    if (serialData[0] && isBoolean(serialData[0] === '1')) validData.timer_started = serialData[0] === '1';
+    if (serialData[1] && isNumber(parseInt(serialData[1]))) validData.car_control_mode = parseInt(serialData[1]);
+    if (serialData[2] && isNumber(parseInt(serialData[2]))) validData.engine_status = parseInt(serialData[2]);
+    if (serialData[3] && isNumber(parseInt(serialData[3]))) validData.right_wheel_pwm = parseInt(serialData[3]);
+    if (serialData[4] && isNumber(parseInt(serialData[4]))) validData.left_wheel_pwm = parseInt(serialData[4]);
+    if (serialData[5] && isNumber(parseFloat(serialData[5]))) validData.right_wheel_speed = parseFloat(serialData[5]);
+    if (serialData[6] && isNumber(parseFloat(serialData[6]))) validData.left_wheel_speed = parseFloat(serialData[6]);
+    if (serialData[7] && isNumber(parseFloat(serialData[7]))) validData.distance = parseFloat(serialData[7]);
+    if (serialData[8] && isNumber(parseInt(serialData[8]))) validData.steering_angle = parseInt(serialData[8]);
+    if (serialData[9] && isNumber(parseInt(serialData[9]))) validData.car_inclination = parseInt(serialData[9]);
+    if (serialData[10] && isBoolean(serialData[10] === '1')) validData.object_detected = serialData[10] === '1';
+    if (serialData[11] && isNumber(parseInt(serialData[11]))) validData.traffic_light_status = parseInt(serialData[11]);
+    if (serialData[12] && isBoolean(serialData[12] === '1')) validData.stop_sign_detected = serialData[12] === '1';
+    if (serialData[13] && isNumber(parseInt(serialData[13]))) validData.solar_battery_status = parseInt(serialData[13]);
+    if (serialData[14] && isNumber(parseInt(serialData[14]))) validData.engines_battery_status = parseInt(serialData[14]);
 
     if (Object.keys(validData).length > 0) {
         dataRef.update({ is_arduino_connected: true, ...validData });
