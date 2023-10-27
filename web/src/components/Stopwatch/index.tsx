@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Value } from '../Value'
+import { useArduinoData } from '../../contexts/ArduinoDataContext'
 
-interface StopwatchProps {
-  isActive: boolean
-}
-
-export function Stopwatch({ isActive }: StopwatchProps) {
-  const [elapsedTime, setElapsedTime] = useState(0)
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1)
-      }, 1000)
-    }
-
-    return () => {
-      if (interval) {
-        clearInterval(interval)
-      }
-    }
-  }, [isActive])
+export function Stopwatch() {
+  const { elapsedTime } = useArduinoData()
 
   const minutes = Math.floor(elapsedTime / 60)
   const seconds = elapsedTime % 60

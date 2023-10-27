@@ -51,7 +51,7 @@ export function Car({ objectDetected }: CarProps) {
       ></path>
       <mask
         id="mask0_31_77"
-        style={{ maskType: "alpha" }}
+        style={{ maskType: 'alpha' }}
         width="32"
         height="36"
         x="10"

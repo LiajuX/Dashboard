@@ -14,23 +14,23 @@ import { HighlightedText } from '../../components/HighlightedText'
 import { Stopwatch } from '../../components/Stopwatch'
 
 function Location() {
-  const { data, timerIsRunning, lapsCounter } = useArduinoData()
+  const { data, lapsCounter } = useArduinoData()
 
   const trafficLightState =
-    data.trafficLightStatus === 1
+    data.traffic_light_status === 1
       ? 'red'
-      : data.trafficLightStatus === 2
+      : data.traffic_light_status === 2
       ? 'yellow'
-      : data.trafficLightStatus === 3
+      : data.traffic_light_status === 3
       ? 'green'
       : 'off'
 
   const carStatus =
-    data.engineStatus === 1 && !data.objectDetected
+    data.engine_status === 1 && !data.object_detected
       ? 'forward'
-      : data.engineStatus === -1 && !data.objectDetected
+      : data.engine_status === -1 && !data.object_detected
       ? 'backward'
-      : data.objectDetected
+      : data.object_detected
       ? 'object-detected'
       : 'stopped'
 
@@ -38,28 +38,43 @@ function Location() {
     <div className="grid grid-cols-base gap-8 h-auto max-w-[1120px] mx-auto mt-4">
       <Container title="Dados">
         <DataBox title="Tempo de percurso" icon={Timer}>
-          <Stopwatch isActive={timerIsRunning} />
+          <Stopwatch />
         </DataBox>
 
         <DataBox title="Distância percorrida" icon={Ruler}>
-          <Value value={data.distance} unit="metros" />
+          <Value
+            value={data.distance}
+            unit={data.distance === 1 ? 'metro' : 'metros'}
+          />
         </DataBox>
 
         <DataBox title="Número de voltas" icon={Flag}>
-          <Value value={lapsCounter} unit="voltas" />
+          <Value
+            value={lapsCounter}
+            unit={lapsCounter === 1 ? 'volta' : 'voltas'}
+          />
         </DataBox>
 
         <div className="flex items-start justify-between w-full">
           <TrafficLight state={trafficLightState} height={56} />
-          <StopSign isActive={data.stopSignDetected} width={56} />
+          <StopSign isActive={data.stop_sign_detected} width={56} />
         </div>
       </Container>
 
       <Container title="Mapa da pista">
         <div className="flex flex-col items-center gap-4">
-          <Map />
+          <Map
+            isAnimating={data.is_arduino_connected && data.engine_status === 1}
+            objectDetected={data.object_detected}
+          />
 
-          <HighlightedText state={carStatus} />
+          {data.is_arduino_connected ? (
+            <HighlightedText state={carStatus} />
+          ) : (
+            <span className="mb-2 font-bold text-petrol-500">
+              Conecte o arduino para iniciar o percurso!
+            </span>
+          )}
         </div>
       </Container>
     </div>

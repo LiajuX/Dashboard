@@ -29,11 +29,11 @@ export function Speedometer({ speed, pwm }: SpeedometerProps) {
             arcStart={120}
             arcEnd={360}
             observer={(current) => {
-              const { percentage, currentText } = current
-              console.log('observer:', percentage, currentText)
+              // const { percentage, currentText } = current
+              // console.log('observer:', percentage, currentText)
             }}
             animationEnd={({ progress, text }) => {
-              console.log('animationEnd', progress, text)
+              // console.log('animationEnd', progress, text)
             }}
           />
 

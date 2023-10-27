@@ -7,24 +7,27 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react'
-import io from 'socket.io-client'
+import { onValue } from 'firebase/database'
 
-interface ArduinoDataType {
-  timerStarted: boolean
-  carControlMode: number
-  engineStatus: number
-  rightWheelPwm: number
-  leftWheelPwm: number
-  rightWheelSpeed: number
-  leftWheelSpeed: number
+import { dataRef } from '../services/firebase'
+
+interface DataType {
+  is_arduino_connected: boolean
+  timer_started: boolean
+  car_control_mode: number
+  engine_status: number
+  right_wheel_pwm: number
+  left_wheel_pwm: number
+  right_wheel_speed: number
+  left_wheel_speed: number
   distance: number
-  steeringAngle: number
-  carInclination: number
-  objectDetected: boolean
-  trafficLightStatus: number
-  stopSignDetected: boolean
-  solarBatteryStatus: number
-  enginesBatteryStatus: number
+  steering_angle: number
+  car_inclination: number
+  object_detected: boolean
+  traffic_light_status: number
+  stop_sign_detected: boolean
+  solar_battery_status: number
+  engines_battery_status: number
 }
 
 interface LineChartData {
@@ -34,8 +37,8 @@ interface LineChartData {
 }
 
 interface ArduinoDataContextType {
-  data: ArduinoDataType
-  timerIsRunning: boolean
+  data: DataType
+  elapsedTime: number
   lapsCounter: number
   speedChartData: LineChartData
   pwmChartData: LineChartData
@@ -48,24 +51,26 @@ interface ArduinoDataProviderProps {
 }
 
 export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
-  const [data, setData] = useState<ArduinoDataType>({
-    timerStarted: false,
-    carControlMode: 0,
-    engineStatus: 0,
-    rightWheelPwm: 0,
-    leftWheelPwm: 0,
-    rightWheelSpeed: 0,
-    leftWheelSpeed: 0,
+  const [data, setData] = useState<DataType>({
+    is_arduino_connected: false,
+    timer_started: false,
+    car_control_mode: 0,
+    engine_status: 0,
+    right_wheel_pwm: 0,
+    left_wheel_pwm: 0,
+    right_wheel_speed: 0,
+    left_wheel_speed: 0,
     distance: 0,
-    steeringAngle: 0,
-    carInclination: 0,
-    stopSignDetected: false,
-    trafficLightStatus: 0,
-    objectDetected: false,
-    solarBatteryStatus: 0,
-    enginesBatteryStatus: 0,
+    steering_angle: 0,
+    car_inclination: 0,
+    object_detected: false,
+    traffic_light_status: 0,
+    stop_sign_detected: false,
+    solar_battery_status: 0,
+    engines_battery_status: 0,
   })
-  const [timerIsRunning, setTimerIsRunning] = useState(false)
+  const [isTimerRunning, setIsTimerRunning] = useState(false)
+  const [elapsedTime, setElapsedTime] = useState(0)
   const [lapsCounter, setLapsCounter] = useState(0)
   const [accumulatedDistance, setAccumulatedDistance] = useState(0)
   const [speedChartData, setSpeedChartData] = useState({
@@ -80,22 +85,18 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
     rightEngineData: Array(12).fill(0),
   })
 
+  function dataHasChanged(oldData: DataType, newData: DataType): boolean {
+    return Object.entries(newData).some(
+      ([key, value]) => oldData[key as keyof DataType] !== value,
+    )
+  }
+
   useEffect(() => {
-    const socket = io('http://localhost:8080')
+    const offValueListener = onValue(dataRef, (snapshot) => {
+      const firebaseData = snapshot.val()
 
-    const fetchData = () => {
-      socket.emit('requestData')
-    }
-
-    const interval = setInterval(fetchData, 1000)
-
-    socket.on('arduinoData', (arduinoData: ArduinoDataType) => {
-      const dataHasChanged = Object.entries(arduinoData).some(
-        ([key, value]) => data[key as keyof ArduinoDataType] !== value,
-      )
-
-      if (dataHasChanged) {
-        const distanceDifference = arduinoData.distance - (data.distance || 0)
+      if (firebaseData && dataHasChanged(data, firebaseData)) {
+        const distanceDifference = firebaseData.distance - (data.distance || 0)
         const newAccumulatedDistance = accumulatedDistance + distanceDifference
 
         if (newAccumulatedDistance >= 55) {
@@ -105,52 +106,71 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
           setAccumulatedDistance(newAccumulatedDistance)
         }
 
-        setData(arduinoData)
+        setData(firebaseData)
 
         // console.log(lapsCounter)
-        console.log(data)
+        // console.log(firebaseData)
 
-        if (arduinoData.timerStarted) {
-          setTimerIsRunning(true)
+        if (firebaseData.timer_started && firebaseData.is_arduino_connected) {
+          setIsTimerRunning(true)
+        } else {
+          setIsTimerRunning(false)
         }
 
         setSpeedChartData((prevChartData) => ({
-          labels: [...prevChartData.labels.slice(1), arduinoData.distance],
+          labels: [...prevChartData.labels.slice(1), firebaseData.distance],
           leftEngineData: [
             ...prevChartData.leftEngineData.slice(1),
-            arduinoData.leftWheelSpeed,
+            firebaseData.left_wheel_speed,
           ],
           rightEngineData: [
             ...prevChartData.rightEngineData.slice(1),
-            arduinoData.rightWheelSpeed,
+            firebaseData.right_wheel_speed,
           ],
         }))
 
         setPwmChartData((prevChartData) => ({
-          labels: [...prevChartData.labels.slice(1), arduinoData.distance], // Remove o primeiro valor e adiciona o novo valor no final
+          labels: [...prevChartData.labels.slice(1), firebaseData.distance], // Remove o primeiro valor e adiciona o novo valor no final
           leftEngineData: [
             ...prevChartData.leftEngineData.slice(1),
-            arduinoData.leftWheelPwm,
+            firebaseData.left_wheel_pwm,
           ],
           rightEngineData: [
             ...prevChartData.rightEngineData.slice(1),
-            arduinoData.rightWheelPwm,
+            firebaseData.right_wheel_pwm,
           ],
         }))
       }
     })
 
     return () => {
-      clearInterval(interval)
-      socket.disconnect()
+      offValueListener()
     }
   }, [accumulatedDistance, data, lapsCounter])
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+
+    if (isTimerRunning) {
+      interval = setInterval(() => {
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1)
+      }, 1000)
+    }
+
+    console.log(isTimerRunning)
+
+    return () => {
+      if (interval) {
+        clearInterval(interval)
+      }
+    }
+  }, [isTimerRunning])
 
   return (
     <ArduinoDataContext.Provider
       value={{
         data,
-        timerIsRunning,
+        elapsedTime,
         lapsCounter,
         speedChartData,
         pwmChartData,

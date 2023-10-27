@@ -32,13 +32,13 @@ function Home() {
   ]
 
   const carControlModeText =
-    data.carControlMode === 1
+    data.car_control_mode === 1
       ? 'Autônomo'
-      : data.carControlMode === 2
+      : data.car_control_mode === 2
       ? 'Controle de velocidade'
-      : data.carControlMode === 3
+      : data.car_control_mode === 3
       ? 'Ajuste do servo'
-      : data.carControlMode === 4
+      : data.car_control_mode === 4
       ? 'Controle remoto'
       : 'Menu'
 
@@ -47,15 +47,15 @@ function Home() {
       <Container title="Velocidade">
         <DataBox title="Motor esquerdo" icon={Gauge}>
           <Speedometer
-            speed={parseFloat(data.leftWheelSpeed.toFixed(1))}
-            pwm={data.leftWheelPwm}
+            speed={parseFloat(data.left_wheel_speed.toFixed(1))}
+            pwm={data.left_wheel_pwm}
           />
         </DataBox>
 
         <DataBox title="Motor direito" icon={Gauge}>
           <Speedometer
-            speed={parseFloat(data.rightWheelSpeed.toFixed(1))}
-            pwm={data.rightWheelPwm}
+            speed={parseFloat(data.right_wheel_speed.toFixed(1))}
+            pwm={data.right_wheel_pwm}
           />
         </DataBox>
       </Container>
@@ -85,7 +85,7 @@ function Home() {
 
                     <Battery
                       level={
-                        data.enginesBatteryStatus as
+                        data.engines_battery_status as
                           | 0
                           | 1
                           | 2
@@ -104,7 +104,7 @@ function Home() {
 
                     <Value
                       size="md"
-                      value={data.enginesBatteryStatus}
+                      value={data.engines_battery_status}
                       unit="V"
                     />
                   </div>
@@ -116,7 +116,7 @@ function Home() {
 
                     <Battery
                       level={
-                        data.solarBatteryStatus as
+                        data.solar_battery_status as
                           | 0
                           | 1
                           | 2
@@ -133,7 +133,11 @@ function Home() {
                       }
                     />
 
-                    <Value size="md" value={data.solarBatteryStatus} unit="V" />
+                    <Value
+                      size="md"
+                      value={data.solar_battery_status}
+                      unit="V"
+                    />
                   </div>
                 </div>
               </div>
@@ -145,9 +149,9 @@ function Home() {
               iconProps={{ weight: 'bold' }}
             >
               <div className="flex flex-col items-center justify-between w-full h-full mt-8">
-                <SteeringSystem angle={data.steeringAngle} />
+                <SteeringSystem angle={data.steering_angle} />
 
-                <Value value={`${data.steeringAngle}°`} />
+                <Value value={`${data.steering_angle}°`} />
               </div>
             </DataBox>
 
@@ -157,7 +161,7 @@ function Home() {
               </DataBox>
 
               <DataBox title="Ângulo de inclinação" icon={TriangleRight}>
-                <Value value={`${data.carInclination}°`} />
+                <Value value={`${data.car_inclination}°`} />
               </DataBox>
             </div>
           </div>
