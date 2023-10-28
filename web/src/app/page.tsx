@@ -32,7 +32,9 @@ function Home() {
   ]
 
   const carControlModeText =
-    data.car_control_mode === 1
+    data.car_control_mode === 0
+      ? 'Menu'
+      : data.car_control_mode === 1
       ? 'Autônomo'
       : data.car_control_mode === 2
       ? 'Controle vel.'
@@ -40,7 +42,10 @@ function Home() {
       ? 'Ajuste do servo'
       : data.car_control_mode === 4
       ? 'Controle remoto'
-      : 'Menu'
+      : '-'
+
+  const solarBatteryStatus = Math.floor(data.solar_battery_status)
+  const enginesBatteryStatus = Math.floor(data.engines_battery_status)
 
   return (
     <div className="grid grid-cols-base gap-8 h-auto max-w-[1120px] mx-auto mt-4">
@@ -48,14 +53,14 @@ function Home() {
         <DataBox title="Motor esquerdo" icon={Gauge}>
           <Speedometer
             speed={parseFloat(data.left_wheel_speed.toFixed(1))}
-            pwm={data.left_wheel_pwm}
+            pwm={parseFloat(data.left_wheel_pwm.toFixed(2))}
           />
         </DataBox>
 
         <DataBox title="Motor direito" icon={Gauge}>
           <Speedometer
             speed={parseFloat(data.right_wheel_speed.toFixed(1))}
-            pwm={data.right_wheel_pwm}
+            pwm={parseFloat(data.right_wheel_pwm.toFixed(2))}
           />
         </DataBox>
       </Container>
@@ -85,7 +90,7 @@ function Home() {
 
                     <Battery
                       level={
-                        data.engines_battery_status as
+                        enginesBatteryStatus as
                           | 0
                           | 1
                           | 2
@@ -116,7 +121,7 @@ function Home() {
 
                     <Battery
                       level={
-                        data.solar_battery_status as
+                        solarBatteryStatus as
                           | 0
                           | 1
                           | 2

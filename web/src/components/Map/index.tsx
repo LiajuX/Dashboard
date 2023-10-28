@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
-import { useArduinoData } from '../../contexts/ArduinoDataContext'
-
 import { Car } from './Car'
 
 interface MapProps {
@@ -16,9 +14,14 @@ gsap.registerPlugin(MotionPathPlugin)
 export function Map({ isAnimating = false, objectDetected = false }: MapProps) {
   const animationRef = useRef<GSAPTween | null>(null)
 
-  const { data } = useArduinoData()
-
   const color = isAnimating ? '#0BFD2B' : '#707C82'
+
+  useEffect(() => {
+    gsap.set('#rect', {
+      x: 520,
+      y: 320,
+    })
+  })
 
   useEffect(() => {
     if (!animationRef.current) {
@@ -259,11 +262,9 @@ export function Map({ isAnimating = false, objectDetected = false }: MapProps) {
           d="M333.517 80.167v-4.959a2.835 2.835 0 00-2.834-2.833h-8.5"
         ></path>
 
-        {data.timer_started && (
-          <g id="rect">
-            <Car objectDetected={objectDetected} />
-          </g>
-        )}
+        <g id="rect">
+          <Car objectDetected={objectDetected} />
+        </g>
 
         <defs>
           <filter

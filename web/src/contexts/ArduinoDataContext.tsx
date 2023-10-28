@@ -23,9 +23,9 @@ interface DataType {
   distance: number
   steering_angle: number
   car_inclination: number
-  object_detected: boolean
   traffic_light_status: number
   stop_sign_detected: boolean
+  object_detected: boolean
   solar_battery_status: number
   engines_battery_status: number
 }
@@ -63,9 +63,9 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
     distance: 0,
     steering_angle: 0,
     car_inclination: 0,
-    object_detected: false,
     traffic_light_status: 0,
     stop_sign_detected: false,
+    object_detected: false,
     solar_battery_status: 0,
     engines_battery_status: 0,
   })
@@ -74,13 +74,13 @@ export function ArduinoDataProvider({ children }: ArduinoDataProviderProps) {
   const [lapsCounter, setLapsCounter] = useState(0)
   const [accumulatedDistance, setAccumulatedDistance] = useState(0)
   const [speedChartData, setSpeedChartData] = useState({
-    labels: Array(12).fill(0),
+    labels: Array(12).fill('00:00'),
     leftEngineData: Array(12).fill(0),
     rightEngineData: Array(12).fill(0),
   })
 
   const [pwmChartData, setPwmChartData] = useState({
-    labels: Array(12).fill(0),
+    labels: Array(12).fill('00:00'),
     leftEngineData: Array(12).fill(0),
     rightEngineData: Array(12).fill(0),
   })

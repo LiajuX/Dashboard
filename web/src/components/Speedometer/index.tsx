@@ -28,13 +28,6 @@ export function Speedometer({ speed, pwm }: SpeedometerProps) {
             emptyColor="#374151"
             arcStart={120}
             arcEnd={360}
-            observer={(current) => {
-              // const { percentage, currentText } = current
-              // console.log('observer:', percentage, currentText)
-            }}
-            animationEnd={({ progress, text }) => {
-              // console.log('animationEnd', progress, text)
-            }}
           />
 
           <div className="absolute top-[-20px] right-[-36px]">
@@ -346,7 +339,7 @@ export function Speedometer({ speed, pwm }: SpeedometerProps) {
 
           <Value
             size="lg-md"
-            value={speed?.toString().replace('.', ',')}
+            value={speed}
             unit="m/s"
             styles="absolute"
             breakline
