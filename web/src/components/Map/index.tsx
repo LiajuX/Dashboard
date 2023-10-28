@@ -21,7 +21,7 @@ export function Map({ isAnimating = false, objectDetected = false }: MapProps) {
       x: 520,
       y: 320,
     })
-  })
+  }, [])
 
   useEffect(() => {
     if (!animationRef.current) {
