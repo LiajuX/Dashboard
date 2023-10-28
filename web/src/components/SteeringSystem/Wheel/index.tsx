@@ -6,7 +6,7 @@ export function Wheel({ angle }: WheelProps) {
   const realAngle = Math.round(0.22 * angle)
 
   return (
-    <div style={{ transform: `rotate(${realAngle}deg)` }}>
+    <div style={{ transform: `rotate(${realAngle * -1}deg)` }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="33"
