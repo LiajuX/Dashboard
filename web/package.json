@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.13",
-    "ably": "^1.2.46",
     "chart.js": "^4.4.0",
     "firebase": "^10.5.1",
     "framer-motion": "^10.16.4",
@@ -21,7 +20,6 @@
     "react-arc-progress": "^1.0.2",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
-    "serialport": "^12.0.0",
     "tailwind-merge": "^1.14.0",
     "tailwind-variants": "^0.1.14"
   },
@@ -36,9 +34,5 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "typescript": "5.2.2"
-  },
-  "optionalDependencies": {
-    "bufferutil": "^4.0.8",
-    "utf-8-validate": "^5.0.10"
   }
 }

@@ -1,4 +1,3 @@
-import ioClient from 'socket.io-client';
 import { SerialPort, ReadlineParser } from 'serialport'
 import { applicationDefault, initializeApp } from 'firebase-admin/app';
 import { getDatabase } from 'firebase-admin/database';
@@ -29,7 +28,7 @@ interface ArduinoDataType {
   engines_battery_status: number
 }
 
-const path = 'COM4'
+const path = 'COM13'
 const baudRate = 57600
 
 const RECONNECT_INTERVAL = 5000;
